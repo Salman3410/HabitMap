@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function SettingsScreen() {
+export default function ProgressScreen() {
   return (
     <View style={styles.container}>
-      <Text>settingsScreen</Text>
+      <Text>analyticsScreen</Text>
     </View>
   );
 }

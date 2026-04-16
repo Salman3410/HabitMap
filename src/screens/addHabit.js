@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function SettingsScreen() {
+export default function AddHabit() {
   return (
     <View style={styles.container}>
-      <Text>settingsScreen</Text>
+      <Text>New Habit</Text>
     </View>
   );
 }
@@ -11,8 +11,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
   },
 });
