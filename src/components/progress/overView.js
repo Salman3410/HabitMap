@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import TimeFilter from "./timeFilter";
+import { PieChart } from "react-native-gifted-charts";
+import Dashboard from "./dashboard";
+import BarChart from "./barChart";
 
 export default function OverView() {
   const filters = ["This Week", "This Month", "This Year", "All Time"];
@@ -13,6 +16,13 @@ export default function OverView() {
     "All Time": 90,
   };
 
+  const progress = data[selectedFilter];
+
+  const pieData = [
+    { value: progress, color: "#177AD5" },
+    { value: 100 - progress, color: "lightgrey" },
+  ];
+
   return (
     <View style={styles.overViewBox}>
       <Text style={styles.title}>Overview</Text>
@@ -23,9 +33,19 @@ export default function OverView() {
         onSelect={setSelectedFilter}
       />
 
-      <View style={styles.dataBox}>
-        <Text style={styles.dataText}>Progress: {data[selectedFilter]}%</Text>
+      <View style={styles.chartBox}>
+        <PieChart
+          donut
+          innerRadius={60}
+          radius={90}
+          data={pieData}
+          centerLabelComponent={() => {
+            return <Text style={styles.centerText}>{progress}%</Text>;
+          }}
+        />
       </View>
+      <Dashboard />
+      <BarChart />
     </View>
   );
 }
@@ -42,13 +62,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  dataBox: {
+  chartBox: {
     marginTop: 20,
-    padding: 20,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  dataText: {
-    fontSize: 16,
+  centerText: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });
