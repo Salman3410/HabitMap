@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import TimeFilter from "./timeFilter";
 import { PieChart } from "react-native-gifted-charts";
 import Dashboard from "./dashboard";
-import BarChart from "./barChart";
+import Chart from "./chart";
 
 export default function OverView() {
   const filters = ["This Week", "This Month", "This Year", "All Time"];
@@ -19,7 +19,7 @@ export default function OverView() {
   const progress = data[selectedFilter];
 
   const pieData = [
-    { value: progress, color: "#177AD5" },
+    { value: progress, color: "#7B9" },
     { value: 100 - progress, color: "lightgrey" },
   ];
 
@@ -45,7 +45,7 @@ export default function OverView() {
         />
       </View>
       <Dashboard />
-      <BarChart />
+      <Chart />
     </View>
   );
 }
@@ -53,10 +53,12 @@ export default function OverView() {
 const styles = StyleSheet.create({
   overViewBox: {
     backgroundColor: "#fff",
-    marginTop: 70,
+    marginTop: 50,
     padding: 20,
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
+    elevation: 2,
+    flexGrow: 1,
   },
   title: {
     fontSize: 18,
