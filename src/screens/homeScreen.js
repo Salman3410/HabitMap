@@ -1,14 +1,52 @@
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons/";
 import { useState } from "react";
 import Header from "../components/home/header";
 import Categories from "../components/home/categories";
+import HabitCard from "../components/home/habitCard";
+import AddHabitButton from "../components/home/addHabitButton";
 
 export default function HomeScreen({ navigation }) {
+  const [count, setCount] = useState(0);
   const [habits, setHabits] = useState([
-    { id: 1, title: "Drink Water", category: "Health" },
-    { id: 2, title: "Read Book", category: "Personal" },
-    { id: 3, title: "Workout", category: "Health" },
-    { id: 4, title: "Code App", category: "Work" },
+    {
+      id: 1,
+      title: "Drink Water",
+      category: "Health",
+      days: "Every Day",
+      streak: 2,
+      count: 0,
+    },
+    {
+      id: 2,
+      title: "Read Book",
+      category: "Personal",
+      days: "Every Day",
+      streak: 12,
+      count: 0,
+    },
+    {
+      id: 3,
+      title: "Workout",
+      category: "Health",
+      days: "Mon,Tue",
+      streak: 29,
+      count: 0,
+    },
+    {
+      id: 4,
+      title: "Code App",
+      category: "Work",
+      days: "Fri,Sat,Sun",
+      streak: 245,
+      count: 0,
+    },
   ]);
 
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -20,59 +58,50 @@ export default function HomeScreen({ navigation }) {
       ? habits
       : habits.filter((h) => h.category === selectedCategory);
 
+  const increaseCount = (id) => {
+    setHabits((prev) =>
+      prev.map((habit) =>
+        habit.id === id ? { ...habit, count: habit.id + 1 } : habit,
+      ),
+    );
+  };
+
   return (
-    <View style={styles.container}>
-      <Header />
-
-      <Categories
-        categories={categories}
-        selected={selectedCategory}
-        onSelect={setSelectedCategory}
-      />
-
-      <View style={styles.listContainer}>
-        {filteredHabits.map((habit) => (
-          <View key={habit.id} style={styles.card}>
-            <Text style={styles.cardText}>{habit.title}</Text>
-          </View>
-        ))}
-      </View>
-
-      {/* Floating Button */}
-      <TouchableOpacity
-        style={styles.fab}
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate("AddHabit")}
+    <View style={styles.screen}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.container}
       >
-        <Text style={styles.plus}>＋</Text>
-        <Text style={styles.label}>New Habit</Text>
-      </TouchableOpacity>
+        <Header />
+
+        <Categories
+          categories={categories}
+          selected={selectedCategory}
+          onSelect={setSelectedCategory}
+        />
+
+        <HabitCard
+          filteredHabits={filteredHabits}
+          onPress={() => increaseCount(habits.id)}
+          navigation={navigation}
+        />
+      </ScrollView>
+
+      <AddHabitButton onPress={() => navigation.navigate("AddHabit")} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingVertical: 40,
   },
-  listContainer: {
-    marginTop: 20,
-    alignItems: "center",
+  container: {
+    paddingTop: 40,
+    paddingBottom: 100,
   },
-  card: {
-    width: "90%",
-    backgroundColor: "#f8f8f8",
-    padding: 15,
-    borderRadius: 12,
-    marginBottom: 12,
-    elevation: 2,
-  },
-  cardText: {
-    fontSize: 16,
-    color: "#333",
-  },
+
   fab: {
     position: "absolute",
     bottom: 30,
@@ -82,14 +111,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     height: 50,
     borderRadius: 10,
-    backgroundColor: "#333",
+    backgroundColor: "#7B9",
     elevation: 5,
   },
+
   plus: {
     color: "#fff",
     fontSize: 18,
     marginRight: 8,
   },
+
   label: {
     color: "#fff",
     fontSize: 14,

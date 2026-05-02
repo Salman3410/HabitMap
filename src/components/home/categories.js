@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     color: "#555",
   },
   activeButton: {
-    backgroundColor: "#333",
-    borderColor: "#333",
+    backgroundColor: "#7B9",
+    borderColor: "rgb(100, 177, 138)",
   },
   activeText: {
     color: "#fff",
