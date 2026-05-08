@@ -1,19 +1,17 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+
+import AddHabitHeader from "../components/addHabit/addHabitHeader";
+import IconPicker from "../components/addHabit/iconPicker";
+import HabitName from "../components/addHabit/habitName";
+import Category from "../components/addHabit/category";
 
 export default function AddHabit({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          activeOpacity={0.8}
-        >
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>New Habit</Text>
-        <View style={styles.emptyHeader}></View>
-      </View>
+      <AddHabitHeader goBack={() => navigation.goBack()} />
+      <IconPicker />
+      <HabitName />
+      <Category />
     </View>
   );
 }
@@ -23,17 +21,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 40,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  emptyHeader: {
-    width: 20,
-    height: 20,
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: "500",
   },
 });

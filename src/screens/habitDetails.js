@@ -1,19 +1,17 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import CompletionBox from "../components/details/completionBox";
+import DetailsHeader from "../components/details/detailsHeader";
+import Title from "../components/details/title";
+import History from "../components/details/history";
 
 export default function HabitDetails({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          activeOpacity={0.8}
-        >
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Details</Text>
-        <View style={styles.emptyHeader}></View>
-      </View>
+      <DetailsHeader goBack={() => navigation.goBack()} />
+      <CompletionBox />
+      <Title />
+      <History />
     </View>
   );
 }
