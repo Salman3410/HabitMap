@@ -1,0 +1,67 @@
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+
+export default function Frequency() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.innerContainer}>
+        <View>
+          <Text style={styles.header}>Frequency</Text>
+          <Text style={styles.tagline}>Completion per day</Text>
+        </View>
+        <View style={styles.counter}>
+          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <AntDesign name="minus" size={14} color="#fff" />
+          </TouchableOpacity>
+          <Text style={styles.count}>0</Text>
+          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <AntDesign name="plus" size={14} color="#fff" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 10,
+  },
+  innerContainer: {
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingVertical: 16,
+    backgroundColor: "#eee",
+    borderColor: "#ccc",
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  header: {},
+  tagline: {
+    fontSize: 13,
+    color: "#555",
+  },
+  counter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    gap: 10,
+  },
+  count: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  button: {
+    backgroundColor: "#7B9",
+    padding: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    borderRadius: 20,
+  },
+  buttonText: {
+    color: "#fff",
+  },
+});

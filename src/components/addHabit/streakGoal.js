@@ -1,13 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-export default function Category() {
+export default function StreakGoal() {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text>Category</Text>
+        <Text>Streak Goal</Text>
         <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-          <Text style={styles.buttonText}>Fitness</Text>
+          <Text style={styles.buttonText}>Day</Text>
           <Entypo name="chevron-small-down" size={18} color="#fff" />
         </TouchableOpacity>
       </View>
