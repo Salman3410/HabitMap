@@ -7,33 +7,17 @@ import {
   Octicons,
 } from "@expo/vector-icons/";
 import CustomButton from "../common/customButton";
+import FontStyle from "./fontStyle";
+import Languages from "./languages";
 
 export default function PrimarySettings() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>App Settings</Text>
 
-      <View style={styles.options}>
-        <View style={styles.row}>
-          <AntDesign name="font-size" size={20} color="black" />
-          <Text style={styles.optionText}>Font Style</Text>
-        </View>
-        <TouchableOpacity activeOpacity={0.8} style={styles.button}>
-          <Text style={styles.buttonText}>Host Grotesk</Text>
-          <MaterialIcons name="keyboard-arrow-down" size={20} color="black" />
-        </TouchableOpacity>
-      </View>
+      <FontStyle />
 
-      <View style={styles.options}>
-        <View style={styles.row}>
-          <Ionicons name="language-outline" size={24} color="black" />
-          <Text style={styles.optionText}>Languages</Text>
-        </View>
-        <TouchableOpacity activeOpacity={0.8} style={styles.button}>
-          <Text style={styles.buttonText}>English</Text>
-          <MaterialIcons name="keyboard-arrow-down" size={20} color="black" />
-        </TouchableOpacity>
-      </View>
+      <Languages />
 
       <CustomButton
         title={"Archieve Habits"}

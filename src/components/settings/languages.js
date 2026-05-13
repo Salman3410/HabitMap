@@ -1,29 +1,32 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { MaterialIcons, Ionicons, Entypo } from "@expo/vector-icons/";
 import { useState } from "react";
 import BottomSheet from "../common/bottomSheet";
 
-const CATEGORIES = ["Health", "Personal", "Work"];
+const LANGUAGES = ["English", "Urdu", "Spanish"];
 
-export default function Category() {
+export default function Languages() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("Health");
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
 
-  const handleSelect = (category) => {
-    setSelectedCategory(category);
+  const handleSelect = (language) => {
+    setSelectedLanguage(language);
     setModalVisible(false);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text>Category</Text>
+    <View>
+      <View style={styles.options}>
+        <View style={styles.row}>
+          <Ionicons name="language-outline" size={24} color="black" />
+          <Text style={styles.fontText}>Languages</Text>
+        </View>
         <TouchableOpacity
-          style={styles.button}
           activeOpacity={0.8}
+          style={styles.button}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={styles.buttonText}>{selectedCategory}</Text>
-          <Entypo name="chevron-small-down" size={18} color="#fff" />
+          <Text style={styles.buttonText}>{selectedLanguage}</Text>
+          <MaterialIcons name="keyboard-arrow-down" size={20} color="black" />
         </TouchableOpacity>
       </View>
 
@@ -32,7 +35,7 @@ export default function Category() {
         onClose={() => setModalVisible(false)}
         title="Selected Category"
       >
-        {CATEGORIES.map((item) => (
+        {LANGUAGES.map((item) => (
           <TouchableOpacity
             key={item}
             style={styles.optionButton}
@@ -41,12 +44,12 @@ export default function Category() {
             <Text
               style={[
                 styles.optionText,
-                selectedCategory === item && styles.selectedOptionText,
+                selectedLanguage === item && styles.selectedOptionText,
               ]}
             >
               {item}
             </Text>
-            {selectedCategory === item && (
+            {selectedLanguage === item && (
               <Entypo name="check" size={18} color="#7B9" />
             )}
           </TouchableOpacity>
@@ -57,32 +60,33 @@ export default function Category() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-  },
-  innerContainer: {
-    borderWidth: 1,
-    borderRadius: 12,
-    paddingVertical: 16,
-    backgroundColor: "#eee",
-    borderColor: "#ccc",
-    paddingHorizontal: 20,
+  options: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 5,
+    paddingHorizontal: 20,
+    backgroundColor: "#7B9",
+    paddingVertical: 12,
+    borderRadius: 16,
+  },
+  row: {
+    flexDirection: "row",
     alignItems: "center",
+    gap: 10,
+  },
+  fontText: {
+    fontSize: 16,
   },
   button: {
-    backgroundColor: "#7B9",
-    paddingHorizontal: 15,
-    paddingVertical: 6,
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
-    borderRadius: 12,
+    backgroundColor: "lightgreen",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 16,
   },
-  buttonText: {
-    color: "#fff",
-  },
+  buttonText: {},
   optionButton: {
     flexDirection: "row",
     justifyContent: "space-between",

@@ -1,7 +1,17 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { useState } from "react";
 
 export default function Frequency() {
+  const [count, setCount] = useState(0);
+
+  const increase = () => {
+    setCount(count + 1);
+  };
+
+  const decrease = () => {
+    setCount(count - 1);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -10,11 +20,19 @@ export default function Frequency() {
           <Text style={styles.tagline}>Completion per day</Text>
         </View>
         <View style={styles.counter}>
-          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={decrease}
+          >
             <AntDesign name="minus" size={14} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.count}>0</Text>
-          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+          <Text style={styles.count}>{count}</Text>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={increase}
+          >
             <AntDesign name="plus" size={14} color="#fff" />
           </TouchableOpacity>
         </View>

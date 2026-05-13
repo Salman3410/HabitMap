@@ -1,38 +1,40 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { AntDesign, MaterialIcons, Entypo } from "@expo/vector-icons/";
 import { useState } from "react";
 import BottomSheet from "../common/bottomSheet";
 
-const CATEGORIES = ["Health", "Personal", "Work"];
+const FONTS = ["Host Grotesk", "Sans-Serif", "Garamond", "Helvetica"];
 
-export default function Category() {
+export default function FontStyle() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("Health");
+  const [selectedCategory, setSelectedCategory] = useState("Host Grotesk");
 
-  const handleSelect = (category) => {
-    setSelectedCategory(category);
+  const handleSelect = (font) => {
+    setSelectedCategory(font);
     setModalVisible(false);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text>Category</Text>
+    <View>
+      <View style={styles.options}>
+        <View style={styles.row}>
+          <AntDesign name="font-size" size={20} color="black" />
+          <Text style={styles.fontText}>Font Style</Text>
+        </View>
         <TouchableOpacity
-          style={styles.button}
           activeOpacity={0.8}
+          style={styles.button}
           onPress={() => setModalVisible(true)}
         >
           <Text style={styles.buttonText}>{selectedCategory}</Text>
-          <Entypo name="chevron-small-down" size={18} color="#fff" />
+          <MaterialIcons name="keyboard-arrow-down" size={20} color="black" />
         </TouchableOpacity>
       </View>
-
       <BottomSheet
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
         title="Selected Category"
       >
-        {CATEGORIES.map((item) => (
+        {FONTS.map((item) => (
           <TouchableOpacity
             key={item}
             style={styles.optionButton}
@@ -57,32 +59,33 @@ export default function Category() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-  },
-  innerContainer: {
-    borderWidth: 1,
-    borderRadius: 12,
-    paddingVertical: 16,
-    backgroundColor: "#eee",
-    borderColor: "#ccc",
-    paddingHorizontal: 20,
+  options: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 5,
+    paddingHorizontal: 20,
+    backgroundColor: "#7B9",
+    paddingVertical: 12,
+    borderRadius: 16,
+  },
+  row: {
+    flexDirection: "row",
     alignItems: "center",
+    gap: 10,
+  },
+  fontText: {
+    fontSize: 16,
   },
   button: {
-    backgroundColor: "#7B9",
-    paddingHorizontal: 15,
-    paddingVertical: 6,
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
-    borderRadius: 12,
+    backgroundColor: "lightgreen",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 16,
   },
-  buttonText: {
-    color: "#fff",
-  },
+  buttonText: {},
   optionButton: {
     flexDirection: "row",
     justifyContent: "space-between",
