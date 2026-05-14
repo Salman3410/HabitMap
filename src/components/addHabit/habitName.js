@@ -1,10 +1,15 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function HabitName() {
+export default function HabitName({ value, onChangeText }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputBox}>
-        <TextInput placeholder="Habit Name" style={styles.input} />
+        <TextInput
+          placeholder="Habit Name"
+          style={styles.input}
+          value={value}
+          onChangeText={onChangeText}
+        />
       </View>
     </View>
   );

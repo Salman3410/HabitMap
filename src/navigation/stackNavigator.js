@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import TabNavigator from "./tabNavigator";
 import AddHabit from "../screens/addHabit";
 import HabitDetails from "../screens/habitDetails";
+import EditHabit from "../screens/editHabit";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +13,7 @@ export default function StackNavigator() {
       <Stack.Screen name="MainTabs" component={TabNavigator} />
       <Stack.Screen name="AddHabit" component={AddHabit} />
       <Stack.Screen name="HabitDetails" component={HabitDetails} />
+      <Stack.Screen name="EditHabit" component={EditHabit} />
     </Stack.Navigator>
   );
 }

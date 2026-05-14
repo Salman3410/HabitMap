@@ -5,12 +5,11 @@ import BottomSheet from "../common/bottomSheet";
 
 const CATEGORIES = ["Health", "Personal", "Work"];
 
-export default function Category() {
+export default function Category({ selectedCategory, onSelectCategory }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("Health");
 
   const handleSelect = (category) => {
-    setSelectedCategory(category);
+    onSelectCategory(category);
     setModalVisible(false);
   };
   return (

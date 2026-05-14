@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons/";
-import { useRoute } from "@react-navigation/native";
 
-export default function HabitCard({ filteredHabits, onPress, navigation }) {
+export default function HabitCard({ filteredHabits, onIncrement, navigation }) {
   return (
     <View style={styles.listContainer}>
       {filteredHabits.map((habit) => (
@@ -10,17 +9,21 @@ export default function HabitCard({ filteredHabits, onPress, navigation }) {
           activeOpacity={0.8}
           key={habit.id}
           style={styles.card}
-          onPress={() => navigation.navigate("HabitDetails")}
+          onPress={() => navigation.navigate("HabitDetails", { id: habit.id })}
         >
           <View style={styles.row}>
             <View style={styles.left}>
-              <MaterialCommunityIcons name="run" size={24} color="black" />
+              <MaterialCommunityIcons
+                name={habit.icon}
+                size={24}
+                color="black"
+              />
 
               <View style={styles.innerCard}>
                 <Text style={styles.cardText}>{habit.title}</Text>
 
                 <View style={styles.streakBox}>
-                  <Text style={styles.daysText}>{habit.days}</Text>
+                  <Text style={styles.daysText}>{habit.goal}</Text>
                   <Text style={styles.daysText}>·</Text>
                   <AntDesign name="fire" size={12} color="#FFA500" />
                   <Text style={styles.streak}>{habit.streak}</Text>
@@ -31,7 +34,7 @@ export default function HabitCard({ filteredHabits, onPress, navigation }) {
             <TouchableOpacity
               style={styles.count}
               activeOpacity={0.8}
-              onPress={onPress}
+              onPress={() => onIncrement(habit.id)}
             >
               <Text style={styles.countText}>{habit.count}</Text>
             </TouchableOpacity>

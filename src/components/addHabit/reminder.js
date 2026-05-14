@@ -2,8 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 
-export default function Reminder() {
-  const [active, setActive] = useState(false);
+export default function Reminder({ active, setActive }) {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -15,11 +14,11 @@ export default function Reminder() {
           activeOpacity={0.8}
           onPress={() => setActive(!active)}
         >
-          {active ? (
-            <FontAwesome name="toggle-on" size={30} color="#7B9" />
-          ) : (
-            <FontAwesome name="toggle-off" size={30} color="#555" />
-          )}
+          <FontAwesome
+            name={active ? "toggle-on" : "toggle-off"}
+            size={30}
+            color={active ? "#7B9" : "#555"}
+          />
         </TouchableOpacity>
       </View>
     </View>

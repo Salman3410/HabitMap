@@ -3,14 +3,13 @@ import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import BottomSheet from "../common/bottomSheet";
 
-const GOALS = ["Day", "Every Day"];
+const GOALS = ["Day", "Week", "Month"];
 
-export default function StreakGoal() {
+export default function StreakGoal({ selectedGoal, onSelectGoal }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("Day");
 
   const handleSelect = (goal) => {
-    setSelectedCategory(goal);
+    onSelectGoal(goal);
     setModalVisible(false);
   };
   return (
@@ -22,7 +21,7 @@ export default function StreakGoal() {
           activeOpacity={0.8}
           onPress={() => setModalVisible(true)}
         >
-          <Text style={styles.buttonText}>{selectedCategory}</Text>
+          <Text style={styles.buttonText}>{selectedGoal}</Text>
           <Entypo name="chevron-small-down" size={18} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -30,7 +29,7 @@ export default function StreakGoal() {
       <BottomSheet
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        title="Selected Category"
+        title="Selected Goal"
       >
         {GOALS.map((item) => (
           <TouchableOpacity
@@ -41,12 +40,12 @@ export default function StreakGoal() {
             <Text
               style={[
                 styles.optionText,
-                selectedCategory === item && styles.selectedOptionText,
+                selectedGoal === item && styles.selectedOptionText,
               ]}
             >
               {item}
             </Text>
-            {selectedCategory === item && (
+            {selectedGoal === item && (
               <Entypo name="check" size={18} color="#7B9" />
             )}
           </TouchableOpacity>

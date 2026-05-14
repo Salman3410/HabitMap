@@ -2,15 +2,17 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 
-export default function Frequency() {
-  const [count, setCount] = useState(0);
-
+export default function Frequency({ count, setCount }) {
   const increase = () => {
-    setCount(count + 1);
+    if (count < 10) {
+      setCount(count + 1);
+    }
   };
 
   const decrease = () => {
-    setCount(count - 1);
+    if (count > 1) {
+      setCount(count - 1);
+    }
   };
   return (
     <View style={styles.container}>

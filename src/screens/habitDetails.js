@@ -8,7 +8,10 @@ import History from "../components/details/history";
 export default function HabitDetails({ navigation }) {
   return (
     <View style={styles.container}>
-      <DetailsHeader goBack={() => navigation.goBack()} />
+      <DetailsHeader
+        goBack={() => navigation.goBack()}
+        edit={() => navigation.navigate("EditHabit")}
+      />
       <CompletionBox />
       <Title />
       <History />

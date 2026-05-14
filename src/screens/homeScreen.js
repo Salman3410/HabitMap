@@ -6,49 +6,15 @@ import {
   ScrollView,
 } from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons/";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Header from "../components/home/header";
 import Categories from "../components/home/categories";
 import HabitCard from "../components/home/habitCard";
 import AddHabitButton from "../components/home/addHabitButton";
+import { HabitContext } from "../context/habitContext";
 
 export default function HomeScreen({ navigation }) {
-  const [count, setCount] = useState(0);
-  const [habits, setHabits] = useState([
-    {
-      id: 1,
-      title: "Drink Water",
-      category: "Health",
-      days: "Every Day",
-      streak: 2,
-      count: 0,
-    },
-    {
-      id: 2,
-      title: "Read Book",
-      category: "Personal",
-      days: "Every Day",
-      streak: 12,
-      count: 0,
-    },
-    {
-      id: 3,
-      title: "Workout",
-      category: "Health",
-      days: "Mon,Tue",
-      streak: 29,
-      count: 0,
-    },
-    {
-      id: 4,
-      title: "Code App",
-      category: "Work",
-      days: "Fri,Sat,Sun",
-      streak: 245,
-      count: 0,
-    },
-  ]);
-
+  const { habits, increaseHabit } = useContext(HabitContext);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const categories = ["All", ...new Set(habits.map((h) => h.category))];
@@ -82,7 +48,7 @@ export default function HomeScreen({ navigation }) {
 
         <HabitCard
           filteredHabits={filteredHabits}
-          onPress={() => increaseCount(habits.id)}
+          onIncrement={increaseHabit}
           navigation={navigation}
         />
       </ScrollView>
