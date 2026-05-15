@@ -31,12 +31,15 @@ export default function AddHabit({ navigation }) {
       title: title.trim(),
       category: category,
       icon: icon,
-      goal: "Every Day",
+      goal: goal,
       frequency: frequency,
       reminder: reminder,
       streak: 0,
+      bestStreak: 0,
       count: 0,
       target: frequency,
+      times: 0,
+      missed: 0,
     };
 
     addHabit(newHabit);

@@ -11,9 +11,22 @@ export const HabitProvider = ({ children }) => {
 
   const increaseHabit = (id) => {
     setHabits((prev) =>
-      prev.map((h) =>
-        h.id === id ? { ...h, done: Math.min(h.done + 1, h.target) } : h,
-      ),
+      prev.map((h) => {
+        if (h.id !== id) return h;
+
+        const nextCount = Math.min(h.count + 1, h.target);
+        const targetReached = nextCount === h.target && h.count !== h.target;
+
+        const newStreak = targetReached ? h.streak + 1 : h.streak;
+        const newBestStreak = Math.max(h.bestStreak || 0, newStreak);
+
+        return {
+          ...h,
+          count: nextCount,
+          streak: newStreak,
+          bestStreak: newBestStreak,
+        };
+      }),
     );
   };
 

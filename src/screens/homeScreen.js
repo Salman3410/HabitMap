@@ -24,14 +24,6 @@ export default function HomeScreen({ navigation }) {
       ? habits
       : habits.filter((h) => h.category === selectedCategory);
 
-  const increaseCount = (id) => {
-    setHabits((prev) =>
-      prev.map((habit) =>
-        habit.id === id ? { ...habit, count: habit.id + 1 } : habit,
-      ),
-    );
-  };
-
   return (
     <View style={styles.screen}>
       <ScrollView

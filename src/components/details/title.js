@@ -1,20 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Title() {
+export default function Title({ title, category, goal, icon }) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.icon}>
-          <MaterialCommunityIcons name="run" size={24} color="#fff" />
+          <MaterialCommunityIcons name={icon} size={24} color="#fff" />
         </View>
         <View>
-          <Text style={styles.title}>Agua</Text>
-          <Text style={styles.category}>health</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.category}>{category}</Text>
         </View>
       </View>
       <View style={styles.days}>
-        <Text style={styles.daysText}>Every Day</Text>
+        <Text style={styles.daysText}>{goal}</Text>
       </View>
     </View>
   );

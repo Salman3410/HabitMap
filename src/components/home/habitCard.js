@@ -36,7 +36,9 @@ export default function HabitCard({ filteredHabits, onIncrement, navigation }) {
               activeOpacity={0.8}
               onPress={() => onIncrement(habit.id)}
             >
-              <Text style={styles.countText}>{habit.count}</Text>
+              <Text style={styles.countText}>
+                {habit.count} / {habit.target}
+              </Text>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
