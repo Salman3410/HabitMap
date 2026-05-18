@@ -1,11 +1,20 @@
+import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { HabitContext } from "../../context/habitContext";
 
 export default function SnapShotBox() {
+  const { habits } = useContext(HabitContext);
+
+  const totalHabits = habits.length;
+
+  const completedTargets = habits.filter(
+    (habit) => habit.count >= habit.target,
+  ).length;
   return (
     <View style={styles.snapshotBox}>
       <Text style={styles.topText}>Today's Snapshot</Text>
       <Text numberOfLines={2} style={styles.count}>
-        0 of 0 habits completed
+        {completedTargets} of {totalHabits} habits completed
       </Text>
       <Text style={styles.motivate}>You still have time.</Text>
     </View>

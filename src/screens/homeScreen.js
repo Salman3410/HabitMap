@@ -38,11 +38,17 @@ export default function HomeScreen({ navigation }) {
           onSelect={setSelectedCategory}
         />
 
-        <HabitCard
-          filteredHabits={filteredHabits}
-          onIncrement={increaseHabit}
-          navigation={navigation}
-        />
+        {filteredHabits.length === 0 ? (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No habit yet</Text>
+          </View>
+        ) : (
+          <HabitCard
+            filteredHabits={filteredHabits}
+            onIncrement={increaseHabit}
+            navigation={navigation}
+          />
+        )}
       </ScrollView>
 
       <AddHabitButton onPress={() => navigation.navigate("AddHabit")} />
@@ -59,7 +65,16 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 100,
   },
-
+  emptyContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 230,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: "#888",
+    fontWeight: "500",
+  },
   fab: {
     position: "absolute",
     bottom: 30,
@@ -72,13 +87,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#7B9",
     elevation: 5,
   },
-
   plus: {
     color: "#fff",
     fontSize: 18,
     marginRight: 8,
   },
-
   label: {
     color: "#fff",
     fontSize: 14,

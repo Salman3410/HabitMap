@@ -1,12 +1,23 @@
+import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
-
-const OPTIONS = [
-  { id: 1, title: "Done", count: 1 },
-  { id: 2, title: "Target", count: 0 },
-  { id: 3, title: "Habits", count: 2 },
-];
+import { HabitContext } from "../../context/habitContext";
 
 export default function Dashboard() {
+  const { habits } = useContext(HabitContext);
+
+  const totalHabits = habits.length;
+
+  const totalDone = habits.reduce((acc, habit) => acc + (habit.count || 0), 0);
+
+  const completedTargets = habits.filter(
+    (habit) => habit.count >= habit.target,
+  ).length;
+
+  const OPTIONS = [
+    { id: 1, title: "Done", count: totalDone },
+    { id: 2, title: "Target", count: completedTargets },
+    { id: 3, title: "Habits", count: totalHabits },
+  ];
   return (
     <View style={styles.container}>
       {OPTIONS.map((item) => (

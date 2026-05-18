@@ -1,16 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { LineChart } from "react-native-gifted-charts";
+import { useContext } from "react";
+import { HabitContext } from "../../context/habitContext";
 
 export default function Chart() {
+  const { habits } = useContext(HabitContext);
+
+  const highestStreak = habits.reduce((max, habit) => {
+    return Math.max(max, habit.bestStreak || 0);
+  }, 0);
+
   const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
+
   return (
     <View>
       <View style={styles.container}>
         <View style={styles.streakContainer}>
           <AntDesign name="fire" size={24} color="#FFA500" />
           <View style={styles.textContainer}>
-            <Text style={styles.days}>0 Day</Text>
+            <Text style={styles.days}>
+              {highestStreak} {highestStreak === 1 ? "Day" : "Days"}
+            </Text>
             <Text style={styles.streakText}>Top Streak</Text>
           </View>
         </View>
@@ -48,7 +59,6 @@ const styles = StyleSheet.create({
   },
   days: {
     fontSize: 18,
-    // color: "#fff",
   },
   streakText: {
     color: "#555",

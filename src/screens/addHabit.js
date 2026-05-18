@@ -47,14 +47,14 @@ export default function AddHabit({ navigation }) {
   };
   return (
     <View style={styles.container}>
-      <AddHabitHeader goBack={() => navigation.goBack()} />
+      <AddHabitHeader goBack={() => navigation.goBack()} title="New Habit" />
       <IconPicker selectedIcon={icon} onSelectIcon={setIcon} />
       <HabitName value={title} onChangeText={setTitle} />
       <Category selectedCategory={category} onSelectCategory={setCategory} />
       <Frequency count={frequency} setCount={setFrecuency} />
       <Reminder active={reminder} setActive={setReminder} />
       <StreakGoal selectedGoal={goal} onSelectGoal={setGoal} />
-      <AddButton onPress={handleSave} />
+      <AddButton onPress={handleSave} title="Create" />
     </View>
   );
 }

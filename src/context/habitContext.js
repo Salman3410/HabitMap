@@ -9,6 +9,12 @@ export const HabitProvider = ({ children }) => {
     setHabits((prev) => [...prev, habit]);
   };
 
+  const updateHabit = (updatedHabit) => {
+    setHabits((prev) =>
+      prev.map((h) => (h.id === updatedHabit.id ? updatedHabit : h)),
+    );
+  };
+
   const increaseHabit = (id) => {
     setHabits((prev) =>
       prev.map((h) => {
@@ -25,13 +31,17 @@ export const HabitProvider = ({ children }) => {
           count: nextCount,
           streak: newStreak,
           bestStreak: newBestStreak,
+          times: nextCount,
+          // missed: ,
         };
       }),
     );
   };
 
   return (
-    <HabitContext.Provider value={{ habits, addHabit, increaseHabit }}>
+    <HabitContext.Provider
+      value={{ habits, addHabit, increaseHabit, updateHabit }}
+    >
       {children}
     </HabitContext.Provider>
   );

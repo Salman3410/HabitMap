@@ -102,10 +102,11 @@ const styles = StyleSheet.create({
   },
 
   count: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    backgroundColor: "#eaeaea",
-    borderRadius: 8,
+    paddingHorizontal: 5,
+    paddingVertical: 10,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderStyle: "dashed",
   },
 
   countText: {

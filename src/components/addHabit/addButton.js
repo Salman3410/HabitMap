@@ -1,13 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function AddButton({ onPress }) {
+export default function AddButton({ onPress, title }) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
       style={styles.container}
     >
-      <Text style={styles.button}>Create</Text>
+      <Text style={styles.button}>{title}</Text>
     </TouchableOpacity>
   );
 }
