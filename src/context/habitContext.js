@@ -29,8 +29,20 @@ export const HabitProvider = ({ children }) => {
     loadStorageData();
   }, []);
 
-  const addHabit = (habit) => {
-    setHabits((prev) => [...prev, { ...habit, history: habit.history || [] }]);
+  const addHabit = async (newHabit) => {
+    try {
+      const structuredHabit = {
+        ...newHabit,
+        id: newHabit.id.toString(),
+        history: [],
+      };
+
+      const updatedHabits = [structuredHabit, ...habits];
+      setHabits(updatedHabits);
+      await AsyncStorage.setItem(HABITS_KEY, JSON.stringify(updatedHabits));
+    } catch (error) {
+      console.error("Failed to save a new habit:", error);
+    }
   };
 
   const updateHabit = (updatedHabit) => {
@@ -39,39 +51,60 @@ export const HabitProvider = ({ children }) => {
     );
   };
 
-  const increaseHabit = (id) => {
-    setHabits((prev) =>
-      prev.map((h) => {
-        if (h.id !== id) return h;
+  const increaseHabit = async (habitId) => {
+    try {
+      const todayDate = new Date().toISOString().split("T")[0];
 
-        const nextCount = Math.min(h.count + 1, h.target);
-        const targetReached = nextCount === h.target && h.count !== h.target;
+      const updatedHabits = habits.map((habit) => {
+        if (habit.id.toString() === habitId.toString()) {
+          const currentCount = habit.times + 1;
+          let currentHistory = habit.history || [];
 
-        const todayStr = new Date().toISOString().split("T")[0];
+          if (
+            currentCount >= habit.target &&
+            !currentHistory.includes(todayDate)
+          ) {
+            currentHistory = [...currentHistory, todayDate];
+          }
 
-        let updatedHistory = [...(h.history || [])];
-        if (targetReached && !updatedHistory.includes(todayStr)) {
-          updatedHistory.push(todayStr);
+          return {
+            ...habit,
+            times: currentCount,
+            count: habit.count + 1,
+            streak: currentHistory.includes(todayDate)
+              ? habit.streak + 1
+              : habit.streak,
+            history: currentHistory,
+          };
         }
+        return habit;
+      });
+      setHabits(updatedHabits);
+      await AsyncStorage.setItem(HABITS_KEY, JSON.stringify(updatedHabits));
+    } catch (error) {
+      console.error("Failed to update habit progress:", error);
+    }
+  };
 
-        const newStreak = targetReached ? h.streak + 1 : h.streak;
-        const newBestStreak = Math.max(h.bestStreak || 0, newStreak);
-
-        return {
-          ...h,
-          count: nextCount,
-          streak: newStreak,
-          bestStreak: newBestStreak,
-          times: nextCount,
-          history: updatedHistory,
-        };
-      }),
-    );
+  const updateUserProfile = async (profileData) => {
+    try {
+      setUserProfile(profileData);
+      await AsyncStorage.setItem(USER_PROFILE_KEY, JSON.stringify(profileData));
+    } catch (error) {
+      console.error("Failed to save user profile:", error);
+    }
   };
 
   return (
     <HabitContext.Provider
-      value={{ habits, addHabit, increaseHabit, updateHabit }}
+      value={{
+        habits,
+        userProfile,
+        loading,
+        addHabit,
+        increaseHabit,
+        updateHabit,
+      }}
     >
       {children}
     </HabitContext.Provider>
