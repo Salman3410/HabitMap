@@ -47,7 +47,7 @@ export default function HabitDetails({ navigation, route }) {
         />
       </View>
 
-      <History />
+      <History habit={habit} />
     </View>
   );
 }
