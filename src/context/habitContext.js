@@ -35,6 +35,9 @@ export const HabitProvider = ({ children }) => {
         ...newHabit,
         id: newHabit.id.toString(),
         history: [],
+        times: 0,
+        streak: 0,
+        bestStreak: 0,
       };
 
       const updatedHabits = [structuredHabit, ...habits];
@@ -59,21 +62,24 @@ export const HabitProvider = ({ children }) => {
         if (habit.id.toString() === habitId.toString()) {
           const currentCount = habit.times + 1;
           let currentHistory = habit.history || [];
+          let newStreak = habit.streak || 0;
+          let newBestStreak = habit.bestStreak || 0;
 
           if (
             currentCount >= habit.target &&
             !currentHistory.includes(todayDate)
           ) {
             currentHistory = [...currentHistory, todayDate];
+            newStreak = (habit.streak || 0) + 1;
+            newBestStreak = Math.max(newStreak, habit.bestStreak || 0);
           }
 
           return {
             ...habit,
             times: currentCount,
             count: habit.count + 1,
-            streak: currentHistory.includes(todayDate)
-              ? habit.streak + 1
-              : habit.streak,
+            streak: newStreak,
+            bestStreak: newBestStreak,
             history: currentHistory,
           };
         }
@@ -83,6 +89,18 @@ export const HabitProvider = ({ children }) => {
       await AsyncStorage.setItem(HABITS_KEY, JSON.stringify(updatedHabits));
     } catch (error) {
       console.error("Failed to update habit progress:", error);
+    }
+  };
+
+  const deleteHabit = async (habitId) => {
+    try {
+      const filtered = habits.filter(
+        (h) => h.id.toString() !== habitId.toString(),
+      );
+      setHabits(filtered);
+      await AsyncStorage.setItem(HABITS_KEY, JSON.stringify(filtered));
+    } catch (error) {
+      console.error("Failed to delete habit:", error);
     }
   };
 
@@ -104,6 +122,7 @@ export const HabitProvider = ({ children }) => {
         addHabit,
         increaseHabit,
         updateHabit,
+        deleteHabit,
       }}
     >
       {children}

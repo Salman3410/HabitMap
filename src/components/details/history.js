@@ -1,43 +1,70 @@
 import { StyleSheet, Text, View } from "react-native";
 
 export default function History({ habit }) {
-  const daysOfWeek = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
+  const current = new Date();
+  const currentYear = current.getFullYear();
+  const currentMonth = current.getMonth();
 
-  const getCurrentWeekDate = () => {
-    const current = new Date();
-    const dayIndex = current.getDay();
+  const monthName = current.toLocaleString("default", { month: "long" });
 
-    const distanceToMonday = dayIndex === 0 ? -6 : 1 - dayIndex;
+  const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-    const monday = new Date(current);
-    monday.setDate(current.getDate() + distanceToMonday);
+  const startDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
 
-    return daysOfWeek.map((_, index) => {
-      const nextDay = new Date(monday);
-      nextDay.setDate(monday.getDate() + index);
-      return nextDay.toISOString().split("T")[0];
-    });
-  };
+  const blankSpaces = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
 
-  const weekDates = getCurrentWeekDate();
   const habitHistory = habit?.history || [];
+  const daysOfWeekLabels = ["M", "T", "W", "T", "F", "S", "S"];
+
+  const calendarGridItems = [
+    ...Array(blankSpaces).fill(null),
+    ...Array.from({ length: totalDays }, (_, i) => i + 1),
+  ];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>History</Text>
-      <View style={styles.graphContainer}>
-        {daysOfWeek.map((day, index) => {
-          const isCompleted = habitHistory.includes(weekDates[index]);
+      <Text style={styles.header}>
+        History ({monthName} {currentYear})
+      </Text>
+
+      <View style={styles.labelsRow}>
+        {daysOfWeekLabels.map((label, idx) => (
+          <Text key={idx} style={styles.labelText}>
+            {label}
+          </Text>
+        ))}
+      </View>
+
+      <View style={styles.gridContainer}>
+        {calendarGridItems.map((day, index) => {
+          if (day === null) {
+            return (
+              <View key={`empty-${index}`} style={styles.gridItemSquare} />
+            );
+          }
+
+          const padMonth = String(currentMonth + 1).padStart(2, "0");
+          const padDay = String(day).padStart(2, "0");
+          const dateString = `${currentYear}-${padMonth}-${padDay}`;
+
+          const isCompleted = habitHistory.includes(dateString);
 
           return (
-            <View key={day} style={styles.dayColumn}>
-              <Text style={styles.dayText}>{day}</Text>
+            <View key={`day-${day}`} style={styles.gridItemSquare}>
               <View
                 style={[
                   styles.circle,
                   isCompleted ? styles.completedCircle : styles.missCircle,
                 ]}
               >
-                {isCompleted && <View style={styles.innerCheck} />}
+                <Text
+                  style={[
+                    styles.dayNumberText,
+                    isCompleted ? styles.completedText : styles.missText,
+                  ]}
+                >
+                  {day}
+                </Text>
               </View>
             </View>
           );
@@ -58,29 +85,39 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 16,
     fontWeight: "500",
+    marginBottom: 16,
   },
-  graphContainer: {
+  labelsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-  },
-  dayColumn: {
-    alignItems: "center",
-    flex: 1,
-  },
-  dayText: {
-    fontSize: 12,
-    color: "#666",
     marginBottom: 8,
-    fontWeight: "500",
   },
-  circle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+  labelText: {
+    width: "13%",
+    textAlign: "center",
+    fontSize: 12,
+    color: "#888",
+    fontWeight: "600",
+  },
+  gridContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+  },
+  gridItemSquare: {
+    width: "14.28%",
+    aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 2,
+    marginBottom: 6,
+  },
+  circle: {
+    width: "85%",
+    height: "85%",
+    borderRadius: 999,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1.5,
   },
   completedCircle: {
     backgroundColor: "#7B9",
@@ -90,10 +127,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#F2F2F7",
     borderColor: "#E5E5EA",
   },
-  innerCheck: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: "#fff",
+  dayNumberText: {
+    fontSize: 11,
+    fontWeight: "600",
+  },
+  completedText: {
+    color: "#fff",
+  },
+  missText: {
+    color: "#666",
   },
 });
