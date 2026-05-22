@@ -4,6 +4,7 @@ import TabNavigator from "./tabNavigator";
 import AddHabit from "../screens/addHabit";
 import HabitDetails from "../screens/habitDetails";
 import EditHabit from "../screens/editHabit";
+import OnBoardingScreen from "../screens/onBoardingScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ export default function StackNavigator() {
       <Stack.Screen name="AddHabit" component={AddHabit} />
       <Stack.Screen name="HabitDetails" component={HabitDetails} />
       <Stack.Screen name="EditHabit" component={EditHabit} />
+      <Stack.Screen name="OnBoard" component={OnBoardingScreen} />
     </Stack.Navigator>
   );
 }
