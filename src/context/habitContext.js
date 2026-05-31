@@ -122,7 +122,7 @@ export const HabitProvider = ({ children }) => {
     try {
       const updatedHabits = habits.map((habit) => {
         if (habit.id.toString() === habitId.toString()) {
-          if (habit.times >= habit.target) {
+          if ((habit.times || 0) >= habit.target) {
             return habit;
           }
 
@@ -147,7 +147,7 @@ export const HabitProvider = ({ children }) => {
             if (completePrevious || hasNoHistory) {
               newStreak = (habit.streak || 0) + 1;
             } else {
-              newStreak = 1; // Resets streak back to 1 if a window was bypassed
+              newStreak = 1;
             }
             newBestStreak = Math.max(newStreak, habit.bestStreak || 0);
           }

@@ -6,23 +6,28 @@ import {
   View,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import UseNotificationManager from "../reminder/useNotificationManager";
 import TimePickerModal from "../reminder/timePickerModal";
+import { HabitContext } from "../../context/habitContext";
 
 export default function Reminder({ active, setActive }) {
   const [time, setTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
 
-  UseNotificationManager(active, time);
+  const { habits } = useContext(HabitContext);
+
+  UseNotificationManager({ active, time, habits });
 
   const handleTimeChange = (event, selectedDate) => {
     if (Platform.OS === "android") {
       setShowPicker(false);
     }
-    if (selectedDate) {
+    if (event.type === "set" && selectedDate) {
       setTime(selectedDate);
-      if (!active) setActive(true);
+      setActive(true);
+    } else if (event.type === "dismissed") {
+      setShowPicker(false);
     }
   };
 
@@ -61,6 +66,7 @@ export default function Reminder({ active, setActive }) {
         visible={showPicker}
         time={time}
         onChange={handleTimeChange}
+        onClose={() => setShowPicker(false)}
       />
     </View>
   );

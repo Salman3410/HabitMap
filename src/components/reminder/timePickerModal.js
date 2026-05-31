@@ -14,6 +14,9 @@ export default function TimePickerModal({ visible, time, onChange }) {
         display={Platform.OS === "ios" ? "spinner" : "default"}
         onChange={onChange}
       />
+      {Platform.OS === "ios" && (
+        <Button title="Done" onPress={onClose} color="#7B9" />
+      )}
     </View>
   );
 }

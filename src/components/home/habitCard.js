@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Vibration,
+} from "react-native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons/";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 
@@ -17,6 +23,13 @@ export default function HabitCard({
       <MaterialCommunityIcons name="trash-can-outline" size={28} color="#fff" />
     </TouchableOpacity>
   );
+
+  const handleIncrementPress = (id) => {
+    console.log("Button pressed for habit:", id);
+    Vibration.vibrate(400);
+    onIncrement(id);
+  };
+
   return (
     <View style={styles.listContainer}>
       {filteredHabits.map((habit) => (
@@ -58,7 +71,7 @@ export default function HabitCard({
               <TouchableOpacity
                 style={styles.count}
                 activeOpacity={0.8}
-                onPress={() => onIncrement(habit.id)}
+                onPress={() => handleIncrementPress(habit.id)}
               >
                 <Text style={styles.countText}>
                   {habit.count} / {habit.target}
