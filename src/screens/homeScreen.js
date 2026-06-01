@@ -17,13 +17,18 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 export default function HomeScreen({ navigation }) {
   const { habits, increaseHabit, deleteHabit } = useContext(HabitContext);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [search, setSearch] = useState("");
 
   const categories = ["All", ...new Set(habits.map((h) => h.category))];
 
-  const filteredHabits =
-    selectedCategory === "All"
-      ? habits
-      : habits.filter((h) => h.category === selectedCategory);
+  const filteredHabits = habits
+    .filter(
+      (h) => selectedCategory === "All" || h.category === selectedCategory,
+    )
+    .filter((h) => {
+      const habitName = h.title || "";
+      return habitName.toLowerCase().includes(search.toLowerCase());
+    });
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -32,7 +37,7 @@ export default function HomeScreen({ navigation }) {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.container}
         >
-          <Header />
+          <Header search={search} setSearch={setSearch} />
 
           <Categories
             categories={categories}

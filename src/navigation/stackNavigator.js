@@ -11,11 +11,11 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="OnBoard" component={OnBoardingScreen} />
       <Stack.Screen name="MainTabs" component={TabNavigator} />
       <Stack.Screen name="AddHabit" component={AddHabit} />
       <Stack.Screen name="HabitDetails" component={HabitDetails} />
       <Stack.Screen name="EditHabit" component={EditHabit} />
-      <Stack.Screen name="OnBoard" component={OnBoardingScreen} />
     </Stack.Navigator>
   );
 }

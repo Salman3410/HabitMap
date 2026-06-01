@@ -7,12 +7,16 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-export default function Header() {
+export default function Header({ search, setSearch }) {
   return (
     <View style={styles.container}>
       <View style={styles.logo}></View>
       <View style={styles.searchBar}>
-        <TextInput placeholder="Search" />
+        <TextInput
+          placeholder="Search"
+          value={search}
+          onChangeText={setSearch}
+        />
       </View>
       <TouchableOpacity activeOpacity={0.8}>
         <Entypo name="dots-three-vertical" size={20} color="black" />

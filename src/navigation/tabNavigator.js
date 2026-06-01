@@ -4,6 +4,7 @@ import HomeScreen from "../../src/screens/homeScreen";
 import SettingsScreen from "../../src/screens/settingsScreen";
 import ProgressScreen from "../../src/screens/progressScreen";
 import CustomTabBar from "../components/tabBar/customTabBar";
+import OnBoardingScreen from "../screens/onBoardingScreen";
 const Tabs = createBottomTabNavigator();
 
 export default function TabNavigator() {
