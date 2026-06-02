@@ -4,16 +4,6 @@ import { AntDesign } from "@expo/vector-icons";
 export default function OnBoardingScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../../assets/images/target.png")}
-        style={styles.backgroundImageRightTop}
-      />
-
-      <Image
-        source={require("../../assets/images/target.png")}
-        style={styles.backgroundImageLeftText}
-      />
-
       <View style={styles.contentContainer}>
         <View style={styles.headContainer}>
           <Text style={styles.tagline}>Welcome</Text>
@@ -61,24 +51,6 @@ const styles = StyleSheet.create({
     gap: 20,
     marginTop: 60,
     zIndex: 2,
-  },
-  backgroundImageRightTop: {
-    position: "absolute",
-    top: -100,
-    right: -100,
-    width: 250,
-    height: 250,
-    opacity: 0.5,
-    resizeMode: "contain",
-  },
-  backgroundImageLeftText: {
-    position: "absolute",
-    top: 130,
-    left: -170,
-    width: 350,
-    height: 350,
-    opacity: 0.4,
-    resizeMode: "contain",
   },
   imageContainer: {
     alignItems: "center",
